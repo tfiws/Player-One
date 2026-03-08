@@ -1,0 +1,222 @@
+/*Colours:
+pink : #E85D7C
+black : #2D3142
+pinkish white : #f5e6e8
+*/
+
+
+body {
+  margin: 0;
+  font-size: 28px;
+  font-family: "Lucida Console", "Courier New", monospace;
+}
+
+/* style navbar */
+#navbar {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  background-color: #2D3142;
+  display: flex;  /*use flexbox*/
+  align-items: center; /*center items vertically*/
+  justify-content: flex-end; /*push right*/
+  z-index:10000;
+}
+
+/* navbar buttons */
+#navbar a {
+  display: block;
+  color: #f5e6e8;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  border-radius:30px;
+  margin: 5px 2px;
+}
+
+/*hover changes colour*/
+#navbar a:hover {
+  background-color: #f5e6e8;
+  color: #2D3142;
+  transform: translateY(-3px);
+  transition: transform 0.3s ease;
+}
+
+/*active button change colour*/
+#navbar a.active {
+  background-color: #E85D7C;
+  color: #f5e6e8;
+
+}
+
+#navbar a.logo{
+    margin-right: auto
+}
+#navbar a.logo img {
+    height: 100px;
+    display:block;
+}
+
+#navbar a.logo:hover{
+    background-color:transparent;
+    transform: translateY(0px);
+}
+
+#navbar input[type=text]{
+    padding: 5px;
+    border: none;
+    font-size:10px;
+    margin-right:10px;
+}
+
+.search-form{
+    display:flex;
+    margin: 0 10px;
+}
+
+.search-form button{
+    padding: 8px 16px;
+    background-color:#E85D7C;
+    color:white;
+    border:none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size:17px
+}
+
+/* Page content */
+.content {
+  padding: 16px;
+}
+
+/*hero section - trans background img*/
+#hero-section{
+    position:relative;
+    min-height:10000px
+    width:100%
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    overflow:hidden;
+    aspect-ratio: 16/9;
+    background-image: url('images/fo3.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+#hero-section::before{
+    content: '';
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background-color:black;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.6
+}
+
+.hero-cont {
+    position: relative;
+    z-index: 1;
+    text-align: left;
+    color: white;
+    padding: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-cont h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #f5e6e8;
+}
+
+.hero-cont p {
+    font-size: 24px;
+    color: #f5e6e8;
+}
+
+#mainbody {
+    background-color: #2D3142;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+#mainbody h2{
+    color: #f5e6e8;
+}
+
+.action-btn {
+    padding: 15px 30px;
+    font-size: 18px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    background-color: #E85D7C;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+.action-btn:hover {
+    background-color: #f5e6e8;
+    color: #2D3142;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.game-row {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    flex-direction: row;
+    justify-content:center;
+}
+
+.game-card {
+    flex: 0 1 300px;
+    background-color: #1a1c2c; /*darker than navbar*/
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.game-card hover{
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+.game-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.game-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.game-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .game-image img {
+    transform: scale(1.05);
+}
+
+.game-info {
+    padding: 20px;
+    text-align: left;
+    color: #f5e6e8;
+}
