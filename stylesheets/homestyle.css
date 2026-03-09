@@ -14,6 +14,12 @@
     box-sizing: border-box;
 }
 
+p {
+    color: #F5E6E8;
+    font-size: 18px;
+    margin: 20px 0;
+}
+
 .navbar {
     display: flex;
     align-items: center;
@@ -51,4 +57,41 @@
 .btn:hover {
     background-color: #F5E6E8;;
     color: #2D3142;
+}
+
+.pink-colour {
+    color: #E85D7C;
+}
+
+.hero-section {
+    text-align: left;
+    display: block;
+    height: 500px;
+    width: auto;
+    padding: 50px 20px;
+    background-image: url('../assets/skyrim.jpg');
+    background-size: cover;
+}
+
+.welcome {
+    color: #F5E6E8;
+}
+
+.welcome.intro {
+    font-size: 64px;
+    margin-top: 20px;
+    margin: -20px 0;
+    color: #F5E6E8
+}
+
+.welcome.pink-colour {
+    color: #E85D7C;
+}
+
+.page-tag {
+    margin-bottom: 20px;
+}
+
+#explore-btn {
+    align-self: left;
 }
