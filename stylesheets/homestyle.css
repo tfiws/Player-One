@@ -121,6 +121,7 @@ ul.game-cards{
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     width: 840px;
+    scrollbar-width: none;
 }
 
 li.game-card {
