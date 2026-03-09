@@ -64,6 +64,8 @@ p {
 .btn:hover {
     background-color: #F5E6E8;;
     color: #2D3142;
+    transform: translateY(-3px);
+    transition: transform 0.3s ease;
 }
 
 .navbar-links .search-form {
@@ -142,6 +144,17 @@ li.game-card {
     width: 280px;
     height: 450px;
     margin: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease; 
+}
+
+.game-card:hover, .game-image:hover {
+    transform: scale(1.05);
 }
 
 .game-image {
@@ -149,6 +162,7 @@ li.game-card {
     height: 250px;
     object-fit: cover;
     border-radius: 4px;
+    transition: transform 0.3s ease;
 }
 
 .game-card a {
