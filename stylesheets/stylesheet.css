@@ -17,6 +17,7 @@ body {
     color: #f5e6e8;
     background-color: #2d3142;
     flex-direction: column;
+    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 p {
@@ -24,6 +25,7 @@ p {
     font-size: 16px;
     margin: 20px 0;
 }
+
 
 .navbar {
     background-color: #2D3142;
@@ -33,6 +35,7 @@ p {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid #62656e75;
 }
 
 .navbar .navbar-links{
@@ -191,4 +194,59 @@ li.game-card {
     font-size: 14px;
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+
+/* sign in page */
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 24px;
+}
+
+.container .sign-in {
+    display: flex;
+    flex-direction: column;
+    background-color: #1d202c;
+    height: 320px;
+    width: 300px;
+    margin: 20px;
+    flex: 0 1 auto;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #62656e75;
+}
+
+.sign-in .small-logo {
+    height: 40px;
+    width: auto;
+}
+
+.container .sign-in .text{
+    text-align: center;
+}
+
+.sign-in .text {
+    margin: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.sign-in .form {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.form .label {
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+.sign-in .form .input {
+    color: white;
+    background-color: #0b0c11;
+    border: 2px solid #62656e75;
 }
