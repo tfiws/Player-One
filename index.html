@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player One - Game Wiki</title>
     <link rel="stylesheet" href="./stylesheets/stylesheet.css">
+    <script defer src="home.js"></script>
 </head>
 <body>
+
     <div class="navbar">
         <a href="./index.html">
             <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
@@ -20,8 +22,8 @@
             </form>
             <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
         </div>
-
     </div>
+
     <div class="hero-section"> 
         <h3 class="pink-colour page-tag"> YOUR GAMING ENCYCLOPEDIA </h3>
         <h2 class="hero intro"> Discover Every</h2>
@@ -33,7 +35,10 @@
         <div class="featured-games">
             <h2 class="featured"> Featured Games </h2>
             <p class="featured info">Hand-picked titles worth exploring</p>
-            <div class="container game-cards">
+            <div class="carousel-wrapper">
+                <button class="carousel-btn left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
+                </button>
                 <ul class="game-cards">
                     <li class="game-card" data-accName="game 1">
                             <a href="pages/game-pages/eldenring.html">
@@ -79,7 +84,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="game-card" data-accName="game 4">
+                    <li class="game-card" data-accName="game 5">
                         <a href="pages/game-pages/tears-of-the-kingdom.html">
                             <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
                             <div class="info">
@@ -90,7 +95,7 @@
                             </div>
                         </a>
                     </li>
-                    <li class="game-card" data-accName="game 4">
+                    <li class="game-card" data-accName="game 6">
                         <a href="pages/game-pages/tears-of-the-kingdom.html">
                             <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
                             <div class="info">
@@ -102,47 +107,91 @@
                         </a>
                     </li>
                 </ul>
+                <button class="carousel-btn right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                </button>
             </div>
         </div>
 
         <div class="saved-games">
             <h2 class="saved"> Saved Games </h2>
             <p class="saved-info">Your favourites right where you need them</p>
-            <ul class="game-cards">
-                <li class="game-card" data-accName="game 1">
-                        <a href="pages/game-pages/eldenring.html">
-                        <img src="./assets/eldenring.webp" alt="Elden Ring" class="game-image">
-                        <div class="info">
-                            <h3 class="game title">Elden Ring</h3>
-                            <p class="tag genre-tag">Open-world RPG</p>
-                            <p class="game description">An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.</p>
-                            <p class="release-date">2022</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="game-card" data-accName="game 2">
-                    <a href="pages/game-pages/cyberpunk2077.html">
-                        <img src="./assets/cyberpunk2077.jpeg" alt="Cyberpunk 2077" class="game-image">
-                        <div class="info">
-                            <h3 class="game title">Cyberpunk 2077</h3>
-                            <p class="tag genre-tag">Action RPG</p>
-                            <p class="game description">An open-world action-adventure RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.</p>
-                            <p class="release-date">2020</p>
-                        </div>
-                    </a>
-                </li>
-                <li class="game-card" data-accName="game 3">
-                    <a href="pages/game-pages/tears-of-the-kingdom.html">
-                        <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                        <div class="info">
-                            <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                            <p class="tag genre-tag">Action Adventure</p>
-                            <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                            <p class="release-date">2023</p>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn left">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
+                </button>
+                <ul class="game-cards">
+                    <li class="game-card" data-accName="game 1">
+                            <a href="pages/game-pages/eldenring.html">
+                            <img src="./assets/eldenring.webp" alt="Elden Ring" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">Elden Ring</h3>
+                                <p class="tag genre-tag">Open-world RPG</p>
+                                <p class="game description">An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.</p>
+                                <p class="release-date">2022</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="game-card" data-accName="game 2">
+                        <a href="pages/game-pages/cyberpunk2077.html">
+                            <img src="./assets/cyberpunk2077.jpeg" alt="Cyberpunk 2077" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">Cyberpunk 2077</h3>
+                                <p class="tag genre-tag">Action RPG</p>
+                                <p class="game description">An open-world action-adventure RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.</p>
+                                <p class="release-date">2020</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="game-card" data-accName="game 3">
+                        <a href="pages/game-pages/tears-of-the-kingdom.html">
+                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
+                                <p class="tag genre-tag">Action Adventure</p>
+                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
+                                <p class="release-date">2023</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="game-card" data-accName="game 4">
+                        <a href="pages/game-pages/tears-of-the-kingdom.html">
+                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
+                                <p class="tag genre-tag">Action Adventure</p>
+                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
+                                <p class="release-date">2023</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="game-card" data-accName="game 5">
+                        <a href="pages/game-pages/tears-of-the-kingdom.html">
+                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
+                                <p class="tag genre-tag">Action Adventure</p>
+                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
+                                <p class="release-date">2023</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="game-card" data-accName="game 6">
+                        <a href="pages/game-pages/tears-of-the-kingdom.html">
+                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
+                                <p class="tag genre-tag">Action Adventure</p>
+                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
+                                <p class="release-date">2023</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <button class="carousel-btn right">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                </button>
+            </div>
         </div>
     </div>
 </body>

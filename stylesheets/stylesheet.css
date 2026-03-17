@@ -117,6 +117,11 @@ p {
     color: #E85D7C;
 }
 
+.carousel-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
 ul.game-cards{
     display: flex;
     list-style: none;
@@ -196,6 +201,14 @@ li.game-card {
     margin-bottom: 0px;
 }
 
+/* Scroll buttons */
+
+.carousel-btn {
+    background: transparent;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+}
 
 /* sign in page */
 
@@ -206,7 +219,7 @@ li.game-card {
     margin: 24px;
 }
 
-.container .sign-in {
+.container .sign-in, .container .sign-up {
     display: flex;
     flex-direction: column;
     background-color: #1d202c;
@@ -217,24 +230,25 @@ li.game-card {
     align-items: center;
     justify-content: center;
     border: 2px solid #62656e75;
+    border-radius: 12px;
 }
 
-.sign-in .small-logo {
+.sign-in .small-logo, .sign-up .small-logo {
     height: 40px;
     width: auto;
 }
 
-.container .sign-in .text{
+.container .sign-in .text, .container .sign-up .text {
     text-align: center;
 }
 
-.sign-in .text {
+.sign-in .text, .sign-up .text {
     margin: 10px;
     padding-left: 20px;
     padding-right: 20px;
 }
 
-.sign-in .form {
+.sign-in .form, .sign-up .form {
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -249,4 +263,19 @@ li.game-card {
     color: white;
     background-color: #0b0c11;
     border: 2px solid #62656e75;
+}
+
+a.no-account {
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: -16px;
+    text-align: center;
+}
+
+a.no-account p {
+    margin: 0;
+}
+
+a.no-account:hover {
+    text-decoration: underline;
 }
