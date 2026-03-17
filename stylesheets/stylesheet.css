@@ -259,7 +259,7 @@ li.game-card {
     margin-bottom: 4px;
 }
 
-.sign-in .form .input {
+.sign-in .form .input, .sign-up .form .input {
     color: white;
     background-color: #0b0c11;
     border: 2px solid #62656e75;
