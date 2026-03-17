@@ -279,3 +279,29 @@ a.no-account p {
 a.no-account:hover {
     text-decoration: underline;
 }
+
+/* games library page */
+
+.gamelibrary-wrapper {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid #62656e75;
+}
+
+.librarytitle-wrapper {
+    margin: 24px;
+}
+
+.searchoptions-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 24px;
+}
+
+.dropdown-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

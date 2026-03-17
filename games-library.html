@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Game Library</title>
     <link rel="stylesheet" href="stylesheets/stylesheet.css">
 </head>
 <body>
@@ -13,7 +13,7 @@
         </a>
         <div class="navbar-links">
             <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
-            <a href="./pages/about.html"> <button id="about-btn" class="btn nav-btn" > About </button> </a>
+            <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
             <form class="search-form"> 
                 <input type="text" id="search-input" placeholder="Search games...">
                 <button id="search-btn" class="btn nav-btn" > Search </button> 
@@ -22,10 +22,34 @@
         </div>
     </div>
 
-    <div class="container game-library">
-        <div class="">
-
+    <div class="gamelibrary-wrapper">
+        <div class="librarytitle-wrapper">
+            <div class="library title">
+                <h1>Game Library</h1>
+                <p>Browse and discover detailed wiki pages for your favorite games</p>
         </div>
+        <div class="searchoptions-wrapper">
+            <form action="" class="library-search"><input type="text" id="library-search-input" placeholder="Search games..."></form>
+            <div class="dropdown-wrapper">
+                <form action="" class="dropdown">
+                    <select name="genres" id="genres" class="genre">
+                        <option value="All">All Genres</option>
+                        <option value="RPG">RPG</option>
+                        <option value="Action">Action</option>
+                    </select>
+                </form>
+                <form action="" class="dropdown">
+                    <select name="platforms" id="platforms" class="platforms">
+                        <option value="All">All Platforms</option>
+                        <option value="PC">PC</option>
+                        <option value="PlayStation">PlayStation</option>
+                        <option value="Xbox">Xbox</option>
+                        <option value="Nintendo">Nintendo</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+
     </div>
 
 </body>
