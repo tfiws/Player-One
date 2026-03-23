@@ -36,6 +36,7 @@ p {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #62656e75;
+    z-index: 100;
 }
 
 .navbar .navbar-links{
