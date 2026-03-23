@@ -86,6 +86,13 @@ p {
     margin: 10px;
 }
 
+#library-search-input {
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    height: 50px;
+    margin: 10px;
+}
 
 .pink-colour {
     color: #E85D7C;
@@ -306,4 +313,14 @@ a.no-account:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.dropdown select {
+    height: 50px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: none;
+    margin: 10px;
+    background-color: #f5e6e8;
+    color: #2d3142;
 }
