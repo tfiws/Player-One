@@ -31,7 +31,7 @@
                 <p>Browse and discover detailed wiki pages for your favorite games</p>
         </div>
         <div class="searchoptions-wrapper">
-            <form action="" class="library-search"><input type="text" id="library-search-input" placeholder="Search games..."></form>
+            <form action="" class="library-search"><input type="text" id="library-search-input" placeholder="Search games..."><button type="button" id="library-search-btn" class="btn">Search</button></form>
             <div class="dropdown-wrapper">
                 <form action="" class="dropdown">
                     <select name="genres" id="genres" class="genre">
@@ -124,8 +124,17 @@
         loadGames();
 
         // Event listeners
-        document.getElementById('library-search-input').addEventListener('input', (e) => {
-            const search = e.target.value;
+        document.getElementById('library-search-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const search = e.target.value;
+                const genre = document.getElementById('genres').value;
+                const platform = document.getElementById('platforms').value;
+                loadGames(search, genre, platform);
+            }
+        });
+
+        document.getElementById('library-search-btn').addEventListener('click', () => {
+            const search = document.getElementById('library-search-input').value;
             const genre = document.getElementById('genres').value;
             const platform = document.getElementById('platforms').value;
             loadGames(search, genre, platform);
