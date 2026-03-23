@@ -224,8 +224,11 @@
             });
         }
 
-        loadFeaturedGames();
-        loadSavedGames();
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFeaturedGames();
+            loadSavedGames();
+        });
     </script>
 </body>
 </html>
