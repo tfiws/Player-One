@@ -20,7 +20,9 @@
                 <input type="text" id="search-input" placeholder="Search games...">
                 <button id="search-btn" class="btn nav-btn" > Search </button> 
             </form>
-            <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+            <div id="auth-button">
+                <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+            </div>
         </div>
     </div>
 
@@ -39,73 +41,8 @@
                 <button class="carousel-btn left">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
                 </button>
-                <ul class="game-cards">
-                    <li class="game-card" data-accName="game 1">
-                            <a href="pages/game-pages/eldenring.html">
-                            <img src="./assets/eldenring.webp" alt="Elden Ring" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">Elden Ring</h3>
-                                <p class="tag genre-tag">Open-world RPG</p>
-                                <p class="game description">An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.</p>
-                                <p class="release-date">2022</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 2">
-                        <a href="pages/game-pages/cyberpunk2077.html">
-                            <img src="./assets/cyberpunk2077.jpeg" alt="Cyberpunk 2077" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">Cyberpunk 2077</h3>
-                                <p class="tag genre-tag">Action RPG</p>
-                                <p class="game description">An open-world action-adventure RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.</p>
-                                <p class="release-date">2020</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 3">
-                        <a href="pages/game-pages/tears-of-the-kingdom.html">
-                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                                <p class="tag genre-tag">Action Adventure</p>
-                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                                <p class="release-date">2023</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 4">
-                        <a href="pages/game-pages/tears-of-the-kingdom.html">
-                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                                <p class="tag genre-tag">Action Adventure</p>
-                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                                <p class="release-date">2023</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 5">
-                        <a href="pages/game-pages/tears-of-the-kingdom.html">
-                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                                <p class="tag genre-tag">Action Adventure</p>
-                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                                <p class="release-date">2023</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 6">
-                        <a href="pages/game-pages/tears-of-the-kingdom.html">
-                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                                <p class="tag genre-tag">Action Adventure</p>
-                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                                <p class="release-date">2023</p>
-                            </div>
-                        </a>
-                    </li>
+                <ul class="game-cards" id="featured-games-list">
+                    <!-- Games will be loaded dynamically -->
                 </ul>
                 <button class="carousel-btn right">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
@@ -116,83 +53,140 @@
         <div class="saved-games">
             <h2 class="saved"> Saved Games </h2>
             <p class="saved-info">Your favourites right where you need them</p>
-            <div class="carousel-wrapper">
-                <button class="carousel-btn left">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
-                </button>
-                <ul class="game-cards">
-                    <li class="game-card" data-accName="game 1">
-                            <a href="pages/game-pages/eldenring.html">
-                            <img src="./assets/eldenring.webp" alt="Elden Ring" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">Elden Ring</h3>
-                                <p class="tag genre-tag">Open-world RPG</p>
-                                <p class="game description">An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.</p>
-                                <p class="release-date">2022</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 2">
-                        <a href="pages/game-pages/cyberpunk2077.html">
-                            <img src="./assets/cyberpunk2077.jpeg" alt="Cyberpunk 2077" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">Cyberpunk 2077</h3>
-                                <p class="tag genre-tag">Action RPG</p>
-                                <p class="game description">An open-world action-adventure RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.</p>
-                                <p class="release-date">2020</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 3">
-                        <a href="pages/game-pages/tears-of-the-kingdom.html">
-                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                                <p class="tag genre-tag">Action Adventure</p>
-                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                                <p class="release-date">2023</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 4">
-                        <a href="pages/game-pages/tears-of-the-kingdom.html">
-                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                                <p class="tag genre-tag">Action Adventure</p>
-                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                                <p class="release-date">2023</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 5">
-                        <a href="pages/game-pages/tears-of-the-kingdom.html">
-                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                                <p class="tag genre-tag">Action Adventure</p>
-                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                                <p class="release-date">2023</p>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="game-card" data-accName="game 6">
-                        <a href="pages/game-pages/tears-of-the-kingdom.html">
-                            <img src="./assets/tears-of-the-kingdom.webp" alt="The Legend of Zelda: Tears of the Kingdom" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">The Legend of Zelda: Tears of the Kingdom</h3>
-                                <p class="tag genre-tag">Action Adventure</p>
-                                <p class="game description">The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.</p>
-                                <p class="release-date">2023</p>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-                <button class="carousel-btn right">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                </button>
+            <div id="saved-games-content">
+                <!-- Content will be loaded based on login status -->
             </div>
         </div>
     </div>
+    <script>
+        async function loadFeaturedGames() {
+            try {
+                const response = await fetch('/games/featured');
+                const games = await response.json();
+                const list = document.getElementById('featured-games-list');
+                list.innerHTML = games.map((game, index) => `
+                    <li class="game-card" data-accName="game ${index + 1}">
+                        <a href="${game.page_url}">
+                            <img src="${game.image_url}" alt="${game.title}" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">${game.title}</h3>
+                                <p class="tag genre-tag">${game.genre}</p>
+                                <p class="game description">${game.description}</p>
+                                <p class="release-date">${game.release_year}</p>
+                            </div>
+                        </a>
+                    </li>
+                `).join('');
+                // Initialize carousel for featured games
+                initializeCarousel('featured-games-list');
+            } catch (error) {
+                console.error('Error loading games:', error);
+            }
+        }
+
+        async function loadSavedGames() {
+            try {
+                const statusResponse = await fetch('/auth/status');
+                const status = await statusResponse.json();
+                updateAuthButton(status.loggedIn);
+                const content = document.getElementById('saved-games-content');
+
+                if (status.loggedIn) {
+                    // Load featured games as saved games for now
+                    const response = await fetch('/games/featured');
+                    const games = await response.json();
+                    content.innerHTML = `
+                        <div class="carousel-wrapper">
+                            <button class="carousel-btn left">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
+                            </button>
+                            <ul class="game-cards" id="saved-games-list">
+                                ${games.map((game, index) => `
+                                    <li class="game-card" data-accName="saved ${index + 1}">
+                                        <a href="${game.page_url}">
+                                            <img src="${game.image_url}" alt="${game.title}" class="game-image">
+                                            <div class="info">
+                                                <h3 class="game title">${game.title}</h3>
+                                                <p class="tag genre-tag">${game.genre}</p>
+                                                <p class="game description">${game.description}</p>
+                                                <p class="release-date">${game.release_year}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                            <button class="carousel-btn right">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                            </button>
+                        </div>
+                    `;
+                    // Initialize carousel for saved games
+                    initializeCarousel('saved-games-list');
+                } else {
+                    content.innerHTML = `
+                        <div style="text-align: center; padding: 50px 20px;">
+                            <p style="color: #f5e6e87f; font-size: 18px; margin-bottom: 20px;">Sign in to view your saved games</p>
+                            <a href="signin.html"><button class="btn">Sign In</button></a>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading saved games:', error);
+            }
+        }
+
+        function updateAuthButton(loggedIn) {
+            const authDiv = document.getElementById('auth-button');
+            if (loggedIn) {
+                authDiv.innerHTML = '<button id="logout-btn" class="btn nav-btn">Log Out</button>';
+                document.getElementById('logout-btn').addEventListener('click', async () => {
+                    try {
+                        await fetch('/auth/logout', { method: 'POST' });
+                        location.reload(); // Refresh to update UI
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                    }
+                });
+            } else {
+                authDiv.innerHTML = '<a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>';
+            }
+        }
+
+        function initializeCarousel(listId) {
+            const wrapper = document.getElementById(listId).parentElement;
+            const leftBtn = wrapper.querySelector('.carousel-btn.left');
+            const rightBtn = wrapper.querySelector('.carousel-btn.right');
+            const gameCards = document.getElementById(listId);
+
+            const updateButtons = () => {
+                const maxScroll = gameCards.scrollWidth - gameCards.clientWidth;
+                const atLeft = gameCards.scrollLeft <= 0;
+                const atRight = gameCards.scrollLeft >= maxScroll - 1;
+
+                leftBtn.style.opacity = atLeft ? '0.3' : '1';
+                rightBtn.style.opacity = atRight ? '0.3' : '1';
+            };
+
+            leftBtn.addEventListener('click', () => {
+                gameCards.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+
+            rightBtn.addEventListener('click', () => {
+                gameCards.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+
+            gameCards.addEventListener('scroll', updateButtons);
+            window.addEventListener('resize', updateButtons);
+            updateButtons();
+
+            gameCards.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                gameCards.scrollBy({ left: e.deltaY, behavior: 'smooth' });
+            });
+        }
+
+        loadFeaturedGames();
+        loadSavedGames();
+    </script>
 </body>
 </html>

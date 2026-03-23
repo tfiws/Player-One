@@ -324,3 +324,11 @@ a.no-account:hover {
     background-color: #f5e6e8;
     color: #2d3142;
 }
+
+#games-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 24px;
+}

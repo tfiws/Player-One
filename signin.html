@@ -18,7 +18,9 @@
                 <input type="text" id="search-input" placeholder="Search games...">
                 <button id="search-btn" class="btn nav-btn" > Search </button> 
             </form>
-            <a href="./signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+            <div id="auth-button">
+                <a href="./signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+            </div>
         </div>
     </div> 
 
@@ -41,6 +43,50 @@
         </div>
     </div>
 
+    <script>
+        document.querySelector('.signin-btn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email-input').value;
+            const password = document.getElementById('password-input').value;
+
+            try {
+                const response = await fetch('/auth/signin', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Signed in successfully!');
+                    window.location.href = '/';
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                alert('An error occurred');
+            }
+        });
+
+        function updateAuthButton(loggedIn) {
+            const authDiv = document.getElementById('auth-button');
+            if (loggedIn) {
+                authDiv.innerHTML = '<button id="logout-btn" class="btn nav-btn">Log Out</button>';
+                document.getElementById('logout-btn').addEventListener('click', async () => {
+                    try {
+                        await fetch('/auth/logout', { method: 'POST' });
+                        location.reload();
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                    }
+                });
+            } else {
+                authDiv.innerHTML = '<a href="./signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>';
+            }
+        }
+
+        // Check login status on page load
+        fetch('/auth/status').then(res => res.json()).then(status => updateAuthButton(status.loggedIn)).catch(console.error);
+    </script>
 
 </body>
 </html>

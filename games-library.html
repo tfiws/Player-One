@@ -18,7 +18,9 @@
                 <input type="text" id="search-input" placeholder="Search games...">
                 <button id="search-btn" class="btn nav-btn" > Search </button> 
             </form>
-            <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+            <div id="auth-button">
+                <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+            </div>
         </div>
     </div>
 
@@ -49,8 +51,82 @@
                 </form>
             </div>
         </div>
+        <div id="games-list">
+            <!-- Games will be loaded here -->
+        </div>
 
     </div>
+
+    <script>
+        async function loadGames(search = '', genre = 'All', platform = 'All') {
+            try {
+                const params = new URLSearchParams({ search, genre, platform });
+                const response = await fetch(`/games?${params}`);
+                const games = await response.json();
+                const list = document.getElementById('games-list');
+                list.innerHTML = games.map(game => `
+                    <div class="game-card">
+                        <a href="${game.page_url}">
+                            <img src="${game.image_url}" alt="${game.title}" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">${game.title}</h3>
+                                <p class="tag genre-tag">${game.genre}</p>
+                                <p class="game description">${game.description}</p>
+                                <p class="release-date">${game.release_year}</p>
+                            </div>
+                        </a>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading games:', error);
+            }
+        }
+
+        // Initial load
+        loadGames();
+
+        // Event listeners
+        document.getElementById('library-search-input').addEventListener('input', (e) => {
+            const search = e.target.value;
+            const genre = document.getElementById('genres').value;
+            const platform = document.getElementById('platforms').value;
+            loadGames(search, genre, platform);
+        });
+
+        document.getElementById('genres').addEventListener('change', (e) => {
+            const search = document.getElementById('library-search-input').value;
+            const genre = e.target.value;
+            const platform = document.getElementById('platforms').value;
+            loadGames(search, genre, platform);
+        });
+
+        document.getElementById('platforms').addEventListener('change', (e) => {
+            const search = document.getElementById('library-search-input').value;
+            const genre = document.getElementById('genres').value;
+            const platform = e.target.value;
+            loadGames(search, genre, platform);
+        });
+
+        function updateAuthButton(loggedIn) {
+            const authDiv = document.getElementById('auth-button');
+            if (loggedIn) {
+                authDiv.innerHTML = '<button id="logout-btn" class="btn nav-btn">Log Out</button>';
+                document.getElementById('logout-btn').addEventListener('click', async () => {
+                    try {
+                        await fetch('/auth/logout', { method: 'POST' });
+                        location.reload();
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                    }
+                });
+            } else {
+                authDiv.innerHTML = '<a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>';
+            }
+        }
+
+        // Check login status on page load
+        fetch('/auth/status').then(res => res.json()).then(status => updateAuthButton(status.loggedIn)).catch(console.error);
+    </script>
 
 </body>
 </html>
