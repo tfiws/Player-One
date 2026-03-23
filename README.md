@@ -1,40 +1,62 @@
 # Player One - Game Wiki MVP
 
-A simple game wiki application with user authentication and game search functionality using SQLite.
+A static game wiki application with client-side authentication simulation for GitHub Pages deployment.
 
 ## Features
 
-- User registration and login
+- Mock user registration and login (using localStorage)
 - Browse featured games on the home page
 - Search and filter games by title, genre, and platform in the library
+- Saved games section (visible when "signed in")
 
-## Setup
+## GitHub Pages Setup
 
-1. Install dependencies:
+1. **Push to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
+   git push -u origin main
    ```
-   npm install
-   ```
 
-2. Start the server:
-   ```
-   npm start
-   ```
+2. **Enable GitHub Pages**:
+   - Go to your repository on GitHub
+   - Click "Settings" tab
+   - Scroll down to "Pages" section
+   - Under "Source", select "Deploy from a branch"
+   - Select "main" branch and "/ (root)" folder
+   - Click "Save"
 
-3. Open your browser and go to `http://localhost:3000`
+3. **Access your site**:
+   - Your site will be available at: `https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/`
 
-## API Endpoints
+## How Authentication Works
 
-- `POST /auth/signup` - Register a new user
-- `POST /auth/signin` - Login
-- `POST /auth/logout` - Logout
-- `GET /auth/status` - Check login status
-- `GET /games` - Get games with optional filters (search, genre, platform)
-- `GET /games/featured` - Get featured games
+Since GitHub Pages only serves static files, authentication is simulated using `localStorage`:
 
-## Database
+- **Sign Up/Sign In**: Stores login state in browser storage
+- **Log Out**: Clears the storage
+- **Saved Games**: Shows when "logged in", hidden when not
 
-The app uses SQLite with two tables:
-- `users` - Stores user email and hashed password
-- `games` - Stores game information
+**Note**: This is not secure authentication - it's just for demo purposes. In a real application, you'd need a backend server.
 
-Sample games are inserted on first run.
+## Local Development
+
+To run locally with the Node.js backend (for full functionality):
+
+```bash
+npm install
+npm start
+```
+
+Then visit `http://localhost:3000`
+
+## File Structure
+
+- `index.html` - Home page with featured and saved games
+- `signin.html` - Sign in page
+- `signup.html` - Registration page
+- `games-library.html` - Game library with search/filters
+- `stylesheets/stylesheet.css` - Main styles
+- `assets/` - Images and assets

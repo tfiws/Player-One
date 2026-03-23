@@ -60,78 +60,120 @@
     </div>
     <script>
         async function loadFeaturedGames() {
-            try {
-                const response = await fetch('/games/featured');
-                const games = await response.json();
-                const list = document.getElementById('featured-games-list');
-                list.innerHTML = games.map((game, index) => `
-                    <li class="game-card" data-accName="game ${index + 1}">
-                        <a href="${game.page_url}">
-                            <img src="${game.image_url}" alt="${game.title}" class="game-image">
-                            <div class="info">
-                                <h3 class="game title">${game.title}</h3>
-                                <p class="tag genre-tag">${game.genre}</p>
-                                <p class="game description">${game.description}</p>
-                                <p class="release-date">${game.release_year}</p>
-                            </div>
-                        </a>
-                    </li>
-                `).join('');
-                // Initialize carousel for featured games
-                initializeCarousel('featured-games-list');
-            } catch (error) {
-                console.error('Error loading games:', error);
-            }
+            // Mock games data - in real app this would come from server
+            const games = [
+                {
+                    title: 'Elden Ring',
+                    genre: 'Open-world RPG',
+                    description: 'An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.',
+                    release_year: 2022,
+                    image_url: './assets/eldenring.webp',
+                    page_url: 'pages/game-pages/eldenring.html'
+                },
+                {
+                    title: 'Cyberpunk 2077',
+                    genre: 'Action RPG',
+                    description: 'An open-world action-adventure RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.',
+                    release_year: 2020,
+                    image_url: './assets/cyberpunk2077.jpeg',
+                    page_url: 'pages/game-pages/cyberpunk2077.html'
+                },
+                {
+                    title: 'The Legend of Zelda: Tears of the Kingdom',
+                    genre: 'Action Adventure',
+                    description: 'The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.',
+                    release_year: 2023,
+                    image_url: './assets/tears-of-the-kingdom.webp',
+                    page_url: 'pages/game-pages/tears-of-the-kingdom.html'
+                }
+            ];
+
+            const list = document.getElementById('featured-games-list');
+            list.innerHTML = games.map((game, index) => `
+                <li class="game-card" data-accName="game ${index + 1}">
+                    <a href="${game.page_url}">
+                        <img src="${game.image_url}" alt="${game.title}" class="game-image">
+                        <div class="info">
+                            <h3 class="game title">${game.title}</h3>
+                            <p class="tag genre-tag">${game.genre}</p>
+                            <p class="game description">${game.description}</p>
+                            <p class="release-date">${game.release_year}</p>
+                        </div>
+                    </a>
+                </li>
+            `).join('');
+            // Initialize carousel for featured games
+            initializeCarousel('featured-games-list');
         }
 
-        async function loadSavedGames() {
-            try {
-                const statusResponse = await fetch('/auth/status');
-                const status = await statusResponse.json();
-                updateAuthButton(status.loggedIn);
-                const content = document.getElementById('saved-games-content');
+        function loadSavedGames() {
+            const loggedIn = localStorage.getItem('loggedIn') === 'true';
+            updateAuthButton(loggedIn);
+            const content = document.getElementById('saved-games-content');
 
-                if (status.loggedIn) {
-                    // Load featured games as saved games for now
-                    const response = await fetch('/games/featured');
-                    const games = await response.json();
-                    content.innerHTML = `
-                        <div class="carousel-wrapper">
-                            <button class="carousel-btn left">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
-                            </button>
-                            <ul class="game-cards" id="saved-games-list">
-                                ${games.map((game, index) => `
-                                    <li class="game-card" data-accName="saved ${index + 1}">
-                                        <a href="${game.page_url}">
-                                            <img src="${game.image_url}" alt="${game.title}" class="game-image">
-                                            <div class="info">
-                                                <h3 class="game title">${game.title}</h3>
-                                                <p class="tag genre-tag">${game.genre}</p>
-                                                <p class="game description">${game.description}</p>
-                                                <p class="release-date">${game.release_year}</p>
-                                            </div>
-                                        </a>
-                                    </li>
-                                `).join('')}
-                            </ul>
-                            <button class="carousel-btn right">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                            </button>
-                        </div>
-                    `;
-                    // Initialize carousel for saved games
-                    initializeCarousel('saved-games-list');
-                } else {
-                    content.innerHTML = `
-                        <div style="text-align: center; padding: 50px 20px;">
-                            <p style="color: #f5e6e87f; font-size: 18px; margin-bottom: 20px;">Sign in to view your saved games</p>
-                            <a href="signin.html"><button class="btn">Sign In</button></a>
-                        </div>
-                    `;
-                }
-            } catch (error) {
-                console.error('Error loading saved games:', error);
+            if (loggedIn) {
+                // Mock saved games - same as featured for now
+                const games = [
+                    {
+                        title: 'Elden Ring',
+                        genre: 'Open-world RPG',
+                        description: 'An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.',
+                        release_year: 2022,
+                        image_url: './assets/eldenring.webp',
+                        page_url: 'pages/game-pages/eldenring.html'
+                    },
+                    {
+                        title: 'Cyberpunk 2077',
+                        genre: 'Action RPG',
+                        description: 'An open-world action-adventure RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.',
+                        release_year: 2020,
+                        image_url: './assets/cyberpunk2077.jpeg',
+                        page_url: 'pages/game-pages/cyberpunk2077.html'
+                    },
+                    {
+                        title: 'The Legend of Zelda: Tears of the Kingdom',
+                        genre: 'Action Adventure',
+                        description: 'The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.',
+                        release_year: 2023,
+                        image_url: './assets/tears-of-the-kingdom.webp',
+                        page_url: 'pages/game-pages/tears-of-the-kingdom.html'
+                    }
+                ];
+
+                content.innerHTML = `
+                    <div class="carousel-wrapper">
+                        <button class="carousel-btn left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
+                        </button>
+                        <ul class="game-cards" id="saved-games-list">
+                            ${games.map((game, index) => `
+                                <li class="game-card" data-accName="saved ${index + 1}">
+                                    <a href="${game.page_url}">
+                                        <img src="${game.image_url}" alt="${game.title}" class="game-image">
+                                        <div class="info">
+                                            <h3 class="game title">${game.title}</h3>
+                                            <p class="tag genre-tag">${game.genre}</p>
+                                            <p class="game description">${game.description}</p>
+                                            <p class="release-date">${game.release_year}</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            `).join('')}
+                        </ul>
+                        <button class="carousel-btn right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                        </button>
+                    </div>
+                `;
+                // Initialize carousel for saved games
+                initializeCarousel('saved-games-list');
+            } else {
+                content.innerHTML = `
+                    <div style="text-align: center; padding: 50px 20px;">
+                        <p style="color: #f5e6e87f; font-size: 18px; margin-bottom: 20px;">Sign in to view your saved games</p>
+                        <a href="signin.html"><button class="btn">Sign In</button></a>
+                    </div>
+                `;
             }
         }
 
@@ -139,13 +181,10 @@
             const authDiv = document.getElementById('auth-button');
             if (loggedIn) {
                 authDiv.innerHTML = '<button id="logout-btn" class="btn nav-btn">Log Out</button>';
-                document.getElementById('logout-btn').addEventListener('click', async () => {
-                    try {
-                        await fetch('/auth/logout', { method: 'POST' });
-                        location.reload(); // Refresh to update UI
-                    } catch (error) {
-                        console.error('Logout error:', error);
-                    }
+                document.getElementById('logout-btn').addEventListener('click', () => {
+                    localStorage.removeItem('loggedIn');
+                    localStorage.removeItem('userEmail');
+                    location.reload();
                 });
             } else {
                 authDiv.innerHTML = '<a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>';

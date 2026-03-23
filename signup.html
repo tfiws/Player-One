@@ -41,7 +41,7 @@
     </div>
 
     <script>
-        document.querySelector('.register-btn').addEventListener('click', async (e) => {
+        document.querySelector('.register-btn').addEventListener('click', (e) => {
             e.preventDefault();
             const email = document.getElementById('email-input').value;
             const password = document.getElementById('password-input').value;
@@ -52,21 +52,14 @@
                 return;
             }
 
-            try {
-                const response = await fetch('/auth/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password, confirmPassword })
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    alert('Registered successfully! Please sign in.');
-                    window.location.href = '/signin.html';
-                } else {
-                    alert(data.error);
-                }
-            } catch (error) {
-                alert('An error occurred');
+            if (email && password) {
+                // Mock registration
+                localStorage.setItem('loggedIn', 'true');
+                localStorage.setItem('userEmail', email);
+                alert('Registered successfully! You are now signed in.');
+                window.location.href = 'index.html';
+            } else {
+                alert('Please fill in all fields');
             }
         });
 
@@ -74,13 +67,10 @@
             const authDiv = document.getElementById('auth-button');
             if (loggedIn) {
                 authDiv.innerHTML = '<button id="logout-btn" class="btn nav-btn">Log Out</button>';
-                document.getElementById('logout-btn').addEventListener('click', async () => {
-                    try {
-                        await fetch('/auth/logout', { method: 'POST' });
-                        location.reload();
-                    } catch (error) {
-                        console.error('Logout error:', error);
-                    }
+                document.getElementById('logout-btn').addEventListener('click', () => {
+                    localStorage.removeItem('loggedIn');
+                    localStorage.removeItem('userEmail');
+                    location.reload();
                 });
             } else {
                 authDiv.innerHTML = '<a href="./signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>';
@@ -88,7 +78,8 @@
         }
 
         // Check login status on page load
-        fetch('/auth/status').then(res => res.json()).then(status => updateAuthButton(status.loggedIn)).catch(console.error);
+        const loggedIn = localStorage.getItem('loggedIn') === 'true';
+        updateAuthButton(loggedIn);
     </script>
 
 </body>
