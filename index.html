@@ -16,9 +16,9 @@
         <div class="navbar-links">
             <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
             <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
-            <form class="search-form"> 
-                <input type="text" id="search-input" placeholder="Search games...">
-                <button id="search-btn" class="btn nav-btn" > Search </button> 
+            <form class="search-form" method="get" action="./games-library.html"> 
+                <input type="text" name="search" id="search-input" placeholder="Search games...">
+                <button type="submit" id="search-btn" class="btn nav-btn" > Search </button> 
             </form>
             <div id="auth-button">
                 <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>

@@ -14,9 +14,9 @@
         <div class="navbar-links">
             <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
             <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
-            <form class="search-form"> 
-                <input type="text" id="search-input" placeholder="Search games...">
-                <button id="search-btn" class="btn nav-btn" > Search </button> 
+            <form class="search-form" method="get" action="./games-library.html"> 
+                <input type="text" name="search" id="search-input" placeholder="Search games...">
+                <button type="submit" id="search-btn" class="btn nav-btn" > Search </button> 
             </form>
             <div id="auth-button">
                 <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
@@ -31,7 +31,7 @@
                 <p>Browse and discover detailed wiki pages for your favorite games</p>
         </div>
         <div class="searchoptions-wrapper">
-            <form action="" class="library-search"><input type="text" id="library-search-input" placeholder="Search games..."><button type="button" id="library-search-btn" class="btn">Search</button></form>
+            <form method="get" action="" class="library-search"><input name="search" type="text" id="library-search-input" placeholder="Search games..."><button type="submit" id="library-search-btn" class="btn">Search</button></form>
             <div class="dropdown-wrapper">
                 <form action="" class="dropdown">
                     <select name="genres" id="genres" class="genre">
@@ -121,20 +121,14 @@
         }
 
         // Initial load
-        loadGames();
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchParam = urlParams.get('search') || '';
+        document.getElementById('library-search-input').value = searchParam;
+        loadGames(searchParam);
 
         // Event listeners
-        document.getElementById('library-search-input').addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const search = e.target.value;
-                const genre = document.getElementById('genres').value;
-                const platform = document.getElementById('platforms').value;
-                loadGames(search, genre, platform);
-            }
-        });
-
-        document.getElementById('library-search-btn').addEventListener('click', () => {
-            const search = document.getElementById('library-search-input').value;
+        document.getElementById('library-search-input').addEventListener('input', (e) => {
+            const search = e.target.value;
             const genre = document.getElementById('genres').value;
             const platform = document.getElementById('platforms').value;
             loadGames(search, genre, platform);
