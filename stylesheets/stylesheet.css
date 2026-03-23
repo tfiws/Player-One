@@ -224,7 +224,7 @@ li.game-card {
     display: flex;
     flex-direction: column;
     background-color: #1d202c;
-    height: 320px;
+    min-height: 320px;
     width: 300px;
     margin: 20px;
     flex: 0 1 auto;
@@ -232,6 +232,7 @@ li.game-card {
     justify-content: center;
     border: 2px solid #62656e75;
     border-radius: 12px;
+    padding: 20px;
 }
 
 .sign-in .small-logo, .sign-up .small-logo {
