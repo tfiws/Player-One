@@ -28,8 +28,23 @@ p {
 
 .games-header{
     display:flex;
+    justify-content: space-between;
     text-align: center;
     margin: 40px;
+}
+
+.btn#saveGames-btn{
+    flex: 0 1 auto;
+    padding: 5px 40px;
+}
+
+.btn#saveGames-btn:active{
+    background-color: #E85D7C;
+}
+
+.btn#saveGames-btn.saved {
+    background-color: #E85D7C;
+    color: #f5e6e8;
 }
 
 .title-box{

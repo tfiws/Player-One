@@ -6,53 +6,65 @@
     <title>Player One - TOTK</title>
     <link rel="stylesheet" href="./stylesheets/gamestyle.css">
 </head>
+
 <body>
-<div class="navbar">
-    <a href="./index.html">
-        <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
-    </a>
-    <div class="navbar-links">
-        <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
-        <a href="./pages/about.html"> <button id="about-btn" class="btn nav-btn" > About </button> </a>
-        <form class="search-form">
-            <input type="text" id="search-input" placeholder="Search games...">
-            <button id="search-btn" class="btn nav-btn" > Search </button>
-        </form>
-        <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
-    </div>
-</div>
-<div class = "games-header">
-    <div class="title-box">
-        <h1>The Legend of Zelda: Tears of the Kingdom</h1>
-    </div>
-</div>
-<div class = "body-container">
-    <div class ="body-box">
-        <h2>Game Description</h2>
-        <p>The Legend of Zelda: Tears of the Kingdom is a 2023 Action Adventure game by Nintendo. You play as Link, as he fights to prevent Ganondorf from destroying Hyrule.</p>
-        <p>The game is played from a Third-person perspective. It features a large, open world for the player to explore. One interesting feature is the non-linear progression.
-        This means you can choose which order you can complete the story in, even rushing straight to the final boss! Though it may not be advised...</p>
-        <h2>Platforms</h2>
-        <p>The Legend of Zelda: Tears of the Kingdom was only released for the Nintendo Switch, later being ported to the Switch 2.</p>
-    </div>
-    <div class = "cover-container">
-        <img src="./assets/tears-of-the-kingdom.webp" alt="Tears of the Kingdom cover art" class="cover-image">
-    </div>
-</div>
-<div class = "body-container">
-    <div class="qna-box">
-        <h2>Q&A</h2>
-        <div class = "qna-item">
-            <div class="qna-question">
-                <span class = "qna-icon">Q:</span>
-                <h3>Is Zelda the dude?</h3>
+
+     <nav>
+        <div class="navbar">
+            <a href="./index.html">
+                <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
+            </a>
+            <div class="navbar-links">
+                <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
+                <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
+                <form class="search-form" method="get" action="./games-library.html">
+                    <input type="text" name="search" id="search-input" placeholder="Search games...">
+                    <button type="submit" id="search-btn" class="btn nav-btn" > Search </button>
+                </form>
+                <div id="auth-button">
+                    <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+                </div>
             </div>
         </div>
-        <div class="qna-answer">
-            <span class="qna-icon">A:</span>
-            <p>I'm not answering that.</p>
+    </nav>
+
+    
+    <div class = "games-header">
+        <div class="title-box">
+            <h1>The Legend of Zelda: Tears of the Kingdom</h1>
+        </div>
+        <button id="saveGames-btn" class="btn">Save Game</button>
+    </div>
+    <div class = "body-container">
+        <div class ="body-box">
+            <h2>Game Description</h2>
+            <p>The Legend of Zelda: Tears of the Kingdom is a 2023 Action Adventure game by Nintendo. You play as Link, as he fights to prevent Ganondorf from destroying Hyrule.</p>
+            <p>The game is played from a Third-person perspective. It features a large, open world for the player to explore. One interesting feature is the non-linear progression.
+            This means you can choose which order you can complete the story in, even rushing straight to the final boss! Though it may not be advised...</p>
+            <h2>Platforms</h2>
+            <p>The Legend of Zelda: Tears of the Kingdom was only released for the Nintendo Switch, later being ported to the Switch 2.</p>
+        </div>
+        <div class = "cover-container">
+            <img src="./assets/tears-of-the-kingdom.webp" alt="Tears of the Kingdom cover art" class="cover-image">
         </div>
     </div>
-</div>
+    <div class = "body-container">
+        <div class="qna-box">
+            <h2>Q&A</h2>
+            <div class = "qna-item">
+                <div class="qna-question">
+                    <span class = "qna-icon">Q:</span>
+                    <h3>Is Zelda the dude?</h3>
+                </div>
+            </div>
+            <div class="qna-answer">
+                <span class="qna-icon">A:</span>
+                <p>I'm not answering that.</p>
+            </div>
+        </div>
+    </div>
 </body>
+<script src="./game-saver.js"></script>
+</body>
+
 </html>

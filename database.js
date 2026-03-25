@@ -26,6 +26,17 @@ db.serialize(() => {
     page_url TEXT
   )`);
 
+  // User Saved Games join table
+  db.run(`CREATE TABLE IF NOT EXISTS user_saved_games (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    game_id INTEGER NOT NULL,
+    saved_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE,
+    UNIQUE(user_id, game_id)
+  )`);
+
   // Insert some sample games
   const sampleGames = [
     {
