@@ -5,26 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player One - Cyberpunk 2077</title>
     <link rel="stylesheet" href="./stylesheets/gamestyle.css">
+    <script defer src="auth-state.js"></script>
 </head>
 <body>
-<div class="navbar">
-    <a href="./index.html">
-        <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
-    </a>
-    <div class="navbar-links">
-        <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
-        <a href="./pages/about.html"> <button id="about-btn" class="btn nav-btn" > About </button> </a>
-        <form class="search-form">
-            <input type="text" id="search-input" placeholder="Search games...">
-            <button id="search-btn" class="btn nav-btn" > Search </button>
-        </form>
-        <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
-    </div>
-</div>
+ <nav>
+        <div class="navbar">
+            <a href="./index.html">
+                <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
+            </a>
+            <div class="navbar-links">
+                <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
+                <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
+                <form class="search-form" method="get" action="./games-library.html">
+                    <input type="text" name="search" id="search-input" placeholder="Search games...">
+                    <button type="submit" id="search-btn" class="btn nav-btn" > Search </button>
+                </form>
+                <div id="auth-button">
+                    <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
 <div class = "games-header">
     <div class="title-box">
         <h1>Cyberpunk 2077</h1>
     </div>
+    <button id="saveGames-btn" class="btn">Save Game</button>
 </div>
 <div class = "body-container">
     <div class ="body-box">
@@ -79,5 +86,6 @@
         </div>
     </div>
 </div>
+<script src="./game-saver.js"></script>
 </body>
 </html>

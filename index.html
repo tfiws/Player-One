@@ -5,26 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Player One - Game Wiki</title>
     <link rel="stylesheet" href="./stylesheets/stylesheet.css">
+    <script defer src="auth-state.js"></script>
     <script defer src="home.js"></script>
 </head>
 <body>
 
-    <div class="navbar">
-        <a href="./index.html">
-            <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
-        </a>
-        <div class="navbar-links">
-            <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
-            <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
-            <form class="search-form" method="get" action="./games-library.html"> 
-                <input type="text" name="search" id="search-input" placeholder="Search games...">
-                <button type="submit" id="search-btn" class="btn nav-btn" > Search </button> 
-            </form>
-            <div id="auth-button">
-                <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+    <nav>
+        <div class="navbar">
+            <a href="./index.html">
+                <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
+            </a>
+            <div class="navbar-links">
+                <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
+                <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
+                <form class="search-form" method="get" action="./games-library.html">
+                    <input type="text" name="search" id="search-input" placeholder="Search games...">
+                    <button type="submit" id="search-btn" class="btn nav-btn" > Search </button>
+                </form>
+                <div id="auth-button">
+                    <a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+                </div>
             </div>
         </div>
-    </div>
+    </nav>
 
     <div class="hero-section"> 
         <h3 class="pink-colour page-tag"> YOUR GAMING ENCYCLOPEDIA </h3>
@@ -106,67 +109,67 @@
             initializeCarousel('featured-games-list');
         }
 
-        function loadSavedGames() {
+        async function loadSavedGames() {
             const loggedIn = localStorage.getItem('loggedIn') === 'true';
             updateAuthButton(loggedIn);
             const content = document.getElementById('saved-games-content');
 
             if (loggedIn) {
-                // Mock saved games - same as featured for now
-                const games = [
-                    {
-                        title: 'Elden Ring',
-                        genre: 'Open-world RPG',
-                        description: 'An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.',
-                        release_year: 2022,
-                        image_url: './assets/eldenring.webp',
-                        page_url: './elden-ring.html'
-                    },
-                    {
-                        title: 'Cyberpunk 2077',
-                        genre: 'Action RPG',
-                        description: 'An open-world action-adventure RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.',
-                        release_year: 2020,
-                        image_url: './assets/cyberpunk2077.jpeg',
-                        page_url: './cyberpunk2077.html'
-                    },
-                    {
-                        title: 'The Legend of Zelda: Tears of the Kingdom',
-                        genre: 'Action Adventure',
-                        description: 'The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.',
-                        release_year: 2023,
-                        image_url: './assets/tears-of-the-kingdom.webp',
-                        page_url: './tears-of-the-kingdom.html'
+                try {
+                    // Fetch user's saved games from server
+                    const response = await fetch('/games/saved');
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch saved games');
                     }
-                ];
+                    const games = await response.json();
 
-                content.innerHTML = `
-                    <div class="carousel-wrapper">
-                        <button class="carousel-btn left">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
-                        </button>
-                        <ul class="game-cards" id="saved-games-list">
-                            ${games.map((game, index) => `
-                                <li class="game-card" data-accName="saved ${index + 1}">
-                                    <a href="${game.page_url}">
-                                        <img src="${game.image_url}" alt="${game.title}" class="game-image">
-                                        <div class="info">
-                                            <h3 class="game title">${game.title}</h3>
-                                            <p class="tag genre-tag">${game.genre}</p>
-                                            <p class="game description">${game.description}</p>
-                                            <p class="release-date">${game.release_year}</p>
-                                        </div>
-                                    </a>
-                                </li>
-                            `).join('')}
-                        </ul>
-                        <button class="carousel-btn right">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                        </button>
-                    </div>
-                `;
-                // Initialize carousel for saved games
-                initializeCarousel('saved-games-list');
+                    if (games.length === 0) {
+                        // Show message when no games are saved
+                        const emptyMessage = "You haven't saved any games yet. Head to the library to start adding your favorites!";
+                        content.innerHTML = `
+                            <div style="text-align: center; padding: 50px 20px;">
+                                <p style="color: #f5e6e87f; font-size: 18px; margin-bottom: 20px;">${emptyMessage}</p>
+                                <a href="./games-library.html"><button class="btn">Browse Games</button></a>
+                            </div>
+                        `;
+                    } else {
+                        // Display user's saved games in carousel
+                        content.innerHTML = `
+                            <div class="carousel-wrapper">
+                                <button class="carousel-btn left">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 8 8 12 12 16"></polyline><line x1="16" y1="12" x2="8" y2="12"></line></svg>
+                                </button>
+                                <ul class="game-cards" id="saved-games-list">
+                                    ${games.map((game, index) => `
+                                        <li class="game-card" data-accName="saved ${index + 1}">
+                                            <a href="./${game.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.html">
+                                                <img src="${game.image_url}" alt="${game.title}" class="game-image">
+                                                <div class="info">
+                                                    <h3 class="game title">${game.title}</h3>
+                                                    <p class="tag genre-tag">${game.genre}</p>
+                                                    <p class="game description">${game.description}</p>
+                                                    <p class="release-date">${game.release_year}</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                                <button class="carousel-btn right">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right-circle"><circle cx="12" cy="12" r="10"></circle><polyline points="12 16 16 12 12 8"></polyline><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                </button>
+                            </div>
+                        `;
+                        // Initialize carousel for saved games
+                        initializeCarousel('saved-games-list');
+                    }
+                } catch (error) {
+                    console.error('Error loading saved games:', error);
+                    content.innerHTML = `
+                        <div style="text-align: center; padding: 50px 20px;">
+                            <p style="color: #f5e6e87f; font-size: 18px; margin-bottom: 20px;">Error loading saved games</p>
+                        </div>
+                    `;
+                }
             } else {
                 content.innerHTML = `
                     <div style="text-align: center; padding: 50px 20px;">
@@ -174,20 +177,6 @@
                         <a href="signin.html"><button class="btn">Sign In</button></a>
                     </div>
                 `;
-            }
-        }
-
-        function updateAuthButton(loggedIn) {
-            const authDiv = document.getElementById('auth-button');
-            if (loggedIn) {
-                authDiv.innerHTML = '<button id="logout-btn" class="btn nav-btn">Log Out</button>';
-                document.getElementById('logout-btn').addEventListener('click', () => {
-                    localStorage.removeItem('loggedIn');
-                    localStorage.removeItem('userEmail');
-                    location.reload();
-                });
-            } else {
-                authDiv.innerHTML = '<a href="signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>';
             }
         }
 

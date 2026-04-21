@@ -5,24 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="./stylesheets/stylesheet.css">
+    <script defer src="auth-state.js"></script>
 </head>
 <body>
-    <div class="navbar">
-        <a href="./index.html">
-            <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
-        </a>
-        <div class="navbar-links">
-            <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
-            <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
-            <form class="search-form" method="get" action="./games-library.html"> 
-                <input type="text" name="search" id="search-input" placeholder="Search games...">
-                <button type="submit" id="search-btn" class="btn nav-btn" > Search </button> 
-            </form>
-            <div id="auth-button">
-                <a href="./signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+
+    <nav>
+        <div class="navbar">
+            <a href="./index.html">
+                <img src="./assets/logowords2.png" alt="Player One Logo" class="logo">
+            </a>
+            <div class="navbar-links">
+                <a href="./index.html"> <button id="home-btn" class="btn nav-btn" > Home </button> </a>
+                <a href="./games-library.html"> <button id="library-btn" class="btn nav-btn" > Library </button> </a>
+                <form class="search-form" method="get" action="./games-library.html">
+                    <input type="text" name="search" id="search-input" placeholder="Search games...">
+                    <button type="submit" id="search-btn" class="btn nav-btn" > Search </button>
+                </form>
+                <div id="auth-button">
+                    <a href="./signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>
+                </div>
             </div>
         </div>
-    </div> 
+    </nav>
 
     <div class="container">
         <div class="sign-up">
@@ -41,25 +45,66 @@
     </div>
 
     <script>
-        document.querySelector('.register-btn').addEventListener('click', (e) => {
+        document.querySelector('.register-btn').addEventListener('click', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email-input').value;
             const password = document.getElementById('password-input').value;
             const confirmPassword = document.getElementById('confirm-password-input').value;
 
+            // Validate all fields are filled
+            if (!email || !password || !confirmPassword) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Validate email format
+            if (!email.includes('@')) {
+                alert('Please enter a valid email address (must contain @)');
+                return;
+            }
+
+            // Validate password match
             if (password !== confirmPassword) {
                 alert('Passwords do not match');
                 return;
             }
 
-            if (email && password) {
-                // Mock registration
-                localStorage.setItem('loggedIn', 'true');
-                localStorage.setItem('userEmail', email);
-                alert('Registered successfully! You are now signed in.');
-                window.location.href = 'index.html';
-            } else {
-                alert('Please fill in all fields');
+            // Validate password length
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long');
+                return;
+            }
+
+            // Call backend API to register
+            try {
+                const response = await fetch('/auth/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password, confirmPassword })
+                });
+
+                let data;
+                try {
+                    data = await response.json();
+                } catch (parseError) {
+                    console.error('Response parse error:', parseError, 'Response status:', response.status);
+                    alert('Server error: Invalid response from server');
+                    return;
+                }
+
+                if (response.ok) {
+                    localStorage.setItem('loggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                    alert('Registered successfully! You are now signed in.');
+                    window.location.href = 'index.html';
+                } else {
+                    alert(data.error || 'Registration failed');
+                }
+            } catch (error) {
+                console.error('Signup error:', error);
+                alert('Error registering: ' + error.message);
             }
         });
 
@@ -67,10 +112,16 @@
             const authDiv = document.getElementById('auth-button');
             if (loggedIn) {
                 authDiv.innerHTML = '<button id="logout-btn" class="btn nav-btn">Log Out</button>';
-                document.getElementById('logout-btn').addEventListener('click', () => {
-                    localStorage.removeItem('loggedIn');
-                    localStorage.removeItem('userEmail');
-                    location.reload();
+                document.getElementById('logout-btn').addEventListener('click', async () => {
+                    try {
+                        await fetch('/auth/logout', { method: 'POST' });
+                        localStorage.removeItem('loggedIn');
+                        localStorage.removeItem('userEmail');
+                        location.reload();
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                        location.reload();
+                    }
                 });
             } else {
                 authDiv.innerHTML = '<a href="./signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>';
