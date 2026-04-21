@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link rel="stylesheet" href="./stylesheets/stylesheet.css">
+    <script defer src="auth-state.js"></script>
 </head>
 <body>
     
@@ -47,39 +48,55 @@
     </div>
 
     <script>
-        document.querySelector('.signin-btn').addEventListener('click', (e) => {
+        document.querySelector('.signin-btn').addEventListener('click', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email-input').value;
             const password = document.getElementById('password-input').value;
 
-            // Mock authentication - in real app this would be server-side
-            if (email && password) {
-                localStorage.setItem('loggedIn', 'true');
-                localStorage.setItem('userEmail', email);
-                alert('Signed in successfully!');
-                window.location.href = 'index.html';
-            } else {
+            // Validate email and password
+            if (!email || !password) {
                 alert('Please enter email and password');
+                return;
+            }
+
+            // Validate email format
+            if (!email.includes('@')) {
+                alert('Please enter a valid email address (must contain @)');
+                return;
+            }
+
+            // Call backend API to authenticate
+            try {
+                const response = await fetch('/auth/signin', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                let data;
+                try {
+                    data = await response.json();
+                } catch (parseError) {
+                    console.error('Response parse error:', parseError, 'Response status:', response.status);
+                    alert('Server error: Invalid response from server');
+                    return;
+                }
+
+                if (response.ok) {
+                    localStorage.setItem('loggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                    alert('Signed in successfully!');
+                    window.location.href = 'index.html';
+                } else {
+                    alert(data.error || 'Sign in failed');
+                }
+            } catch (error) {
+                console.error('Signin error:', error);
+                alert('Error signing in: ' + error.message);
             }
         });
-
-        function updateAuthButton(loggedIn) {
-            const authDiv = document.getElementById('auth-button');
-            if (loggedIn) {
-                authDiv.innerHTML = '<button id="logout-btn" class="btn nav-btn">Log Out</button>';
-                document.getElementById('logout-btn').addEventListener('click', () => {
-                    localStorage.removeItem('loggedIn');
-                    localStorage.removeItem('userEmail');
-                    location.reload();
-                });
-            } else {
-                authDiv.innerHTML = '<a href="./signin.html"> <button id="signin-btn" class="btn nav-btn" > Sign In </button> </a>';
-            }
-        }
-
-        // Check login status on page load
-        const loggedIn = localStorage.getItem('loggedIn') === 'true';
-        updateAuthButton(loggedIn);
     </script>
 
 </body>
