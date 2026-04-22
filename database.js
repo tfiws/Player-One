@@ -65,6 +65,14 @@ db.serialize(() => {
       release_year: 2023,
       image_url: './assets/tears-of-the-kingdom.webp',
       page_url: 'pages/game-pages/tears-of-the-kingdom.html'
+    },
+    {
+      title: 'Battlefield 6',
+      genre: 'First-person shooter',
+      description: 'The latest entry in the Battlefield series, featuring large-scale battles, a variety of vehicles and a new focus on player choice.',
+      release_year: 2025,
+      image_url: './assets/bf6.png',
+      page_url: 'pages/game-pages/battlefield6.html'
     }
   ];
 
