@@ -4,53 +4,116 @@ A static game wiki application with client-side authentication simulation for Gi
 
 ## Features
 
-- Mock user registration and login (using localStorage)
+- User registration and login
 - Browse featured games on the home page
 - Search and filter games by title, genre, and platform in the library
 - Saved games section (visible when "signed in")
 
-## GitHub Pages Setup
-
-1. **Push to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-   git push -u origin main
-   ```
-
-2. **Enable GitHub Pages**:
-   - Go to your repository on GitHub
-   - Click "Settings" tab
-   - Scroll down to "Pages" section
-   - Under "Source", select "Deploy from a branch"
-   - Select "main" branch and "/ (root)" folder
-   - Click "Save"
-
-3. **Access your site**:
-   - Your site will be available at: `https://YOUR_USERNAME.github.io/YOUR_REPO_NAME/`
-
 ## How Authentication Works
-
-Since GitHub Pages only serves static files, authentication is simulated using `localStorage`:
-
-- **Sign Up/Sign In**: Stores login state in browser storage
-- **Log Out**: Clears the storage
-- **Saved Games**: Shows when "logged in", hidden when not
-
-**Note**: This is not secure authentication - it's just for demo purposes. In a real application, you'd need a backend server.
 
 ## Local Development
 
-To run locally with the Node.js backend (for full functionality):
+Windows Setup Guide For Development and Testing (Node + Express Server)
 
-```bash
+This project runs on a Node.js + Express backend, so you must run the server to use the site.
+
+---
+
+1. Install Node.js (Recommended: via NVM)
+
+Step 1: Install NVM for Windows
+
+- Go to: https://github.com/coreybutler/nvm-windows/releases
+- Download: nvm-setup.exe
+- Run the installer
+
+Step 2: Install Node.js (LTS)
+
+Open Command Prompt:
+
+'''
+nvm install lts
+nvm use lts
+'''
+
+Step 3: Check it worked
+
+'''
+node -v
+npm -v
+'''
+
+---
+
+Alternative (No NVM)
+
+- Go to: https://nodejs.org
+- Download the LTS version (recommended)
+- Install it
+
+Then check:
+
+'''
+node -v
+npm -v
+'''
+
+---
+
+Running the Express Server
+
+1. Go to the project folder
+
+'''
+cd path\to\Player-One
+'''
+
+---
+
+2. Install dependencies
+
+'''
 npm install
-npm start
-```
+'''
 
-Then visit `http://localhost:3000`
+---
+
+3. Create ".env" file
+
+In the root folder:
+
+SESSION_SECRET=your-secret-key
+PORT=3000
+
+---
+
+4. Start the server
+
+'''
+node server.js
+'''
+
+Optional (auto-restart on changes):
+
+'''
+npx nodemon server.js
+'''
+
+---
+
+5. Open the app
+
+http://localhost:3000
+
+---
+
+⚠️ Notes
+
+- Always use LTS version of Node.js (stable and supported)
+- Do NOT open HTML files directly — always use the Express server
+- Authentication will not work without the backend running
+
+---
 
 ## File Structure
 
