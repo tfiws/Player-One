@@ -104,6 +104,19 @@ db.serialize(() => {
             }
           }
         );
+      } else {
+        // Update existing game with current values to ensure page_url is correct
+        db.run(
+          "UPDATE games SET genre = ?, platform = ?, description = ?, release_year = ?, image_url = ?, page_url = ? WHERE title = ?",
+          [game.genre, game.platform, game.description, game.release_year, game.image_url, game.page_url, game.title],
+          (updateErr) => {
+            if (updateErr) {
+              console.error('Error updating sample game:', updateErr);
+            } else {
+              console.log(`Updated sample game: ${game.title}`);
+            }
+          }
+        );
       }
     });
   };

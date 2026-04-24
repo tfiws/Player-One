@@ -31,17 +31,17 @@ Step 2: Install Node.js (LTS)
 
 Open Command Prompt:
 
-'''
+```
 nvm install lts
 nvm use lts
-'''
+```
 
 Step 3: Check it worked
 
-'''
+```
 node -v
 npm -v
-'''
+```
 
 ---
 
@@ -53,10 +53,10 @@ Alternative (No NVM)
 
 Then check:
 
-'''
+```
 node -v
 npm -v
-'''
+```
 
 ---
 
@@ -64,17 +64,17 @@ Running the Express Server
 
 1. Go to the project folder
 
-'''
+```
 cd path\to\Player-One
-'''
+```
 
 ---
 
 2. Install dependencies
 
-'''
+```
 npm install
-'''
+```
 
 ---
 
@@ -89,15 +89,15 @@ PORT=3000
 
 4. Start the server
 
-'''
+```
 node server.js
-'''
+```
 
 Optional (auto-restart on changes):
 
-'''
+```
 npx nodemon server.js
-'''
+```
 
 ---
 
