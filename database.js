@@ -37,7 +37,7 @@ db.serialize(() => {
     UNIQUE(user_id, game_id)
   )`);
 
-  // Insert some sample games
+  // Insert some sample games if missing
   const sampleGames = [
     {
       title: 'Elden Ring',
@@ -46,7 +46,7 @@ db.serialize(() => {
       description: 'An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.',
       release_year: 2022,
       image_url: './assets/eldenring.webp',
-      page_url: 'pages/game-pages/eldenring.html'
+      page_url: './elden-ring.html'
     },
     {
       title: 'Cyberpunk 2077',
@@ -55,7 +55,7 @@ db.serialize(() => {
       description: 'An open-world, action-adventure RPG set in the dark future of Night City.',
       release_year: 2020,
       image_url: './assets/cyberpunk2077.jpeg',
-      page_url: 'pages/game-pages/cyberpunk2077.html'
+      page_url: './cyberpunk2077.html'
     },
     {
       title: 'The Legend of Zelda: Tears of the Kingdom',
@@ -64,31 +64,52 @@ db.serialize(() => {
       description: 'The sequel to Breath of the Wild, featuring new mechanics and exploration.',
       release_year: 2023,
       image_url: './assets/tears-of-the-kingdom.webp',
-      page_url: 'pages/game-pages/tears-of-the-kingdom.html'
+      page_url: './tears-of-the-kingdom.html'
     },
     {
       title: 'Battlefield 6',
       genre: 'First-person shooter',
+      platform: 'PC, PlayStation, Xbox',
       description: 'The latest entry in the Battlefield series, featuring large-scale battles, a variety of vehicles and a new focus on player choice.',
       release_year: 2025,
       image_url: './assets/bf6.png',
-      page_url: 'pages/game-pages/battlefield6.html'
+      page_url: './battlefield6.html'
+    },
+    {
+      title: 'Call of Duty: Warzone',
+      genre: 'Battle Royale',
+      platform: 'PC, PlayStation, Xbox',
+      description: 'A free-to-play battle royale game set in the Call of Duty universe, featuring large-scale combat and loadout-based gameplay.',
+      release_year: 2020,
+      image_url: './assets/warzone.jpg',
+      page_url: './warzone.html'
     }
   ];
 
-  // Check if games table is empty
-  db.get("SELECT COUNT(*) as count FROM games", (err, row) => {
-    if (err) {
-      console.error(err);
-    } else if (row.count === 0) {
-      const stmt = db.prepare("INSERT INTO games (title, genre, platform, description, release_year, image_url, page_url) VALUES (?, ?, ?, ?, ?, ?, ?)");
-      sampleGames.forEach(game => {
-        stmt.run(game.title, game.genre, game.platform, game.description, game.release_year, game.image_url, game.page_url);
-      });
-      stmt.finalize();
-      console.log('Sample games inserted');
-    }
-  });
+  const insertGameIfMissing = (game) => {
+    db.get("SELECT id FROM games WHERE title = ?", [game.title], (err, row) => {
+      if (err) {
+        console.error('Error checking sample game:', err);
+        return;
+      }
+      if (!row) {
+        db.run(
+          "INSERT INTO games (title, genre, platform, description, release_year, image_url, page_url) VALUES (?, ?, ?, ?, ?, ?, ?)",
+          [game.title, game.genre, game.platform, game.description, game.release_year, game.image_url, game.page_url],
+          (insertErr) => {
+            if (insertErr) {
+              console.error('Error inserting sample game:', insertErr);
+            } else {
+              console.log(`Inserted sample game: ${game.title}`);
+            }
+          }
+        );
+      }
+    });
+  };
+
+  sampleGames.forEach(insertGameIfMissing);
+
 });
 
 module.exports = db;

@@ -158,7 +158,7 @@
                                 <ul class="game-cards" id="saved-games-list">
                                     ${games.map((game, index) => `
                                         <li class="game-card" data-accName="saved ${index + 1}">
-                                            <a href="./${game.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.html">
+                                            <a href="${game.page_url}">
                                                 <img src="${game.image_url}" alt="${game.title}" class="game-image">
                                                 <div class="info">
                                                     <h3 class="game title">${game.title}</h3>
