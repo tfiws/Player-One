@@ -82,8 +82,10 @@ npm install
 
 In the root folder:
 
-SESSION_SECRET=your-secret-key
+```
+SESSION_SECRET="your-secret-key"
 PORT=3000
+```
 
 ---
 
