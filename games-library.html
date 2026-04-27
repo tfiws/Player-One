@@ -37,7 +37,7 @@
             <form method="get" action="" class="library-search"><input name="search" type="text" id="library-search-input" placeholder="Search games..."><button type="submit" id="library-search-btn" class="btn">Search</button></form>
             <div class="dropdown-wrapper">
                 <form action="" class="dropdown">
-                    <select name="genres" id="genres" class="genre">
+                    <select name="genre" id="genres" class="genre">
                         <option value="All">All Genres</option>
                         <option value="RPG">RPG</option>
                         <option value="Action">Action</option>
@@ -46,7 +46,7 @@
                     </select>
                 </form>
                 <form action="" class="dropdown">
-                    <select name="platforms" id="platforms" class="platforms">
+                    <select name="platform" id="platforms" class="platforms">
                         <option value="All">All Platforms</option>
                         <option value="PC">PC</option>
                         <option value="PlayStation">PlayStation</option>
@@ -113,41 +113,52 @@
                 }
             ];
 
-            let games = allGames;
+            const params = new URLSearchParams();
+            if (search) params.append('search', search);
+            if (genre && genre !== 'All') params.append('genre', genre);
+            if (platform && platform !== 'All') params.append('platform', platform);
 
-            if (search) {
-                games = games.filter(game => game.title.toLowerCase().includes(search.toLowerCase()));
+            try {
+                const response = await fetch(`/games?${params.toString()}`);
+                if (!response.ok) {
+                    throw new Error('Failed to load games');
+                }
+                const games = await response.json();
+                const list = document.getElementById('games-list');
+
+                if (games.length === 0) {
+                    list.innerHTML = '<p class="no-results">No games found.</p>';
+                    return;
+                }
+
+                list.innerHTML = games.map(game => `
+                    <div class="game-card">
+                        <a href="${game.page_url}">
+                            <img src="${game.image_url}" alt="${game.title}" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">${game.title}</h3>
+                                <p class="tag genre-tag">${game.genre}</p>
+                                <p class="game description">${game.description}</p>
+                                <p class="release-date">${game.release_year}</p>
+                            </div>
+                        </a>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading games:', error);
+                document.getElementById('games-list').innerHTML = '<p class="no-results">Unable to load games right now.</p>';
             }
-
-            if (genre !== 'All') {
-                games = games.filter(game => game.genre.toLowerCase().includes(genre.toLowerCase()));
-            }
-
-            if (platform !== 'All') {
-                games = games.filter(game => game.platform.toLowerCase().includes(platform.toLowerCase()));
-            }
-
-            const list = document.getElementById('games-list');
-            list.innerHTML = games.map(game => `
-                <div class="game-card">
-                    <a href="${game.page_url}">
-                        <img src="${game.image_url}" alt="${game.title}" class="game-image">
-                        <div class="info">
-                            <h3 class="game title">${game.title}</h3>
-                            <p class="tag genre-tag">${game.genre}</p>
-                            <p class="game description">${game.description}</p>
-                            <p class="release-date">${game.release_year}</p>
-                        </div>
-                    </a>
-                </div>
-            `).join('');
         }
 
         // Initial load
         const urlParams = new URLSearchParams(window.location.search);
         const searchParam = urlParams.get('search') || '';
+        const genreParam = urlParams.get('genre') || 'All';
+        const platformParam = urlParams.get('platform') || 'All';
         document.getElementById('library-search-input').value = searchParam;
-        loadGames(searchParam);
+        document.getElementById('genres').value = genreParam;
+        document.getElementById('platforms').value = platformParam;
+        loadGames(searchParam, genreParam, platformParam);
 
         // Event listeners
         document.getElementById('library-search-input').addEventListener('input', (e) => {

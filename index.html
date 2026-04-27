@@ -62,66 +62,32 @@
     </div>
     <script>
         async function loadFeaturedGames() {
-            // Mock games data - in real app this would come from server
-            const games = [
-                {
-                    title: 'Elden Ring',
-                    genre: 'Open-world RPG',
-                    description: 'An action RPG set in the Lands Between, a realm blessed by the Greater Will and the Erdtree.',
-                    release_year: 2022,
-                    image_url: './assets/eldenring.webp',
-                    page_url: './elden-ring.html'
-                },
-                {
-                    title: 'Cyberpunk 2077',
-                    genre: 'Action RPG',
-                    description: 'An open-world action-adventure RPG set in Night City, a megalopolis obsessed with power, glamour and body modification.',
-                    release_year: 2020,
-                    image_url: './assets/cyberpunk2077.jpeg',
-                    page_url: './cyberpunk2077.html'
-                },
-                {
-                    title: 'The Legend of Zelda: Tears of the Kingdom',
-                    genre: 'Action Adventure',
-                    description: 'The sequel to The Legend of Zelda: Breath of the Wild, featuring new abilities to explore the skies above and then depths below Hyrule.',
-                    release_year: 2023,
-                    image_url: './assets/tears-of-the-kingdom.webp',
-                    page_url: './tears-of-the-kingdom.html'
-                },
-                {
-                    title: 'Battlefield 6',
-                    genre: 'First-person shooter',
-                    description: 'The latest entry in the Battlefield series, featuring large-scale battles, a variety of vehicles and a new focus on player choice.',
-                    release_year: 2025,
-                    image_url: './assets/bf6.png',
-                    page_url: 'battlefield6.html'
-                },
-                {
-                    title: 'Call of Duty: Warzone',
-                    genre: 'Battle Royale',
-                    description: 'A free-to-play battle royale game set in the Call of Duty universe, featuring intense firefights and strategic gameplay.',
-                    release_year: 2020,
-                    image_url: './assets/warzone.jpg',
-                    page_url: './warzone.html'
+            try {
+                const response = await fetch('/games/featured');
+                if (!response.ok) {
+                    throw new Error('Failed to load featured games');
                 }
-            ];
-
-            const list = document.getElementById('featured-games-list');
-            list.innerHTML = games.map((game, index) => `
-                <li class="game-card" data-accName="game ${index + 1}">
-                    <a href="${game.page_url}">
-                        <img src="${game.image_url}" alt="${game.title}" class="game-image">
-                        <div class="info">
-                            <h3 class="game title">${game.title}</h3>
-                            <p class="tag genre-tag">${game.genre}</p>
-                            <p class="game description">${game.description}</p>
-                            <p class="release-date">${game.release_year}</p>
-                        </div>
-                    </a>
-                </li>
-            `).join('');
-            // Initialize carousel for featured games
-            initializeCarousel('featured-games-list');
+                const games = await response.json();
+                const list = document.getElementById('featured-games-list');
+                list.innerHTML = games.map((game, index) => `
+                    <li class="game-card" data-accName="game ${index + 1}">
+                        <a href="${game.page_url}">
+                            <img src="${game.image_url}" alt="${game.title}" class="game-image">
+                            <div class="info">
+                                <h3 class="game title">${game.title}</h3>
+                                <p class="tag genre-tag">${game.genre}</p>
+                                <p class="game description">${game.description}</p>
+                                <p class="release-date">${game.release_year}</p>
+                            </div>
+                        </a>
+                    </li>
+                `).join('');
+                // Initialize carousel for featured games
+                initializeCarousel('featured-games-list');
+            } catch (error) {
+                console.error('Error loading featured games:', error);
+                document.getElementById('featured-games-list').innerHTML = '<li class="game-card">Unable to load featured games.</li>';
+            }
         }
 
         async function loadSavedGames() {

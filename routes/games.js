@@ -43,6 +43,20 @@ router.get('/featured', (req, res) => {
   });
 });
 
+// Get a single game by ID
+router.get('/:gameId(\d+)', (req, res) => {
+  const { gameId } = req.params;
+  db.get("SELECT * FROM games WHERE id = ?", [gameId], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (!row) {
+      return res.status(404).json({ error: 'Game not found' });
+    }
+    res.json(row);
+  });
+});
+
 // Get all saved games for current user
 router.get('/saved', (req, res) => {
   if (!req.session.userId) {
