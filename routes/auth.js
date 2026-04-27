@@ -47,7 +47,19 @@ router.post('/signup', async (req, res) => {
         return res.status(500).json({ error: 'Database error' });
       }
       console.log('User created successfully');
-      res.status(201).json({ message: 'User created successfully' });
+      
+      // Get the newly created user and establish session
+      db.get("SELECT id FROM users WHERE email = ?", [email], (err, user) => {
+        if (err || !user) {
+          console.error('Error retrieving new user:', err);
+          return res.status(500).json({ error: 'Failed to establish session' });
+        }
+        
+        // Create session for the new user
+        req.session.userId = user.id;
+        console.log('Session established for new user:', email);
+        res.status(201).json({ message: 'User created successfully' });
+      });
     });
   } catch (error) {
     console.error('Signup error:', error);
