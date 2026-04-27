@@ -1,1 +1,0 @@
-// Carousel initialization is handled in index.html's initializeCarousel function

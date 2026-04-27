@@ -1,6 +1,6 @@
 # Player One - Game Wiki MVP
 
-A static game wiki application with client-side authentication simulation for GitHub Pages deployment.
+A game wiki application built with Node.js and Express, featuring user authentication and saved games functionality.
 
 ## Features
 
@@ -8,8 +8,6 @@ A static game wiki application with client-side authentication simulation for Gi
 - Browse featured games on the home page
 - Search and filter games by title, genre, and platform in the library
 - Saved games section (visible when "signed in")
-
-## How Authentication Works
 
 ## Local Development
 
