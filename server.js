@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
@@ -5,22 +7,8 @@ const cors = require('cors');
 const path = require('path');
 const db = require('./database');
 
-let authRoutes;
-let gameRoutes;
-
-try {
-  authRoutes = require('./routes/auth');
-  console.log('Auth routes loaded successfully');
-} catch (error) {
-  console.error('Failed to load auth routes:', error);
-}
-
-try {
-  gameRoutes = require('./routes/games');
-  console.log('Game routes loaded successfully');
-} catch (error) {
-  console.error('Failed to load game routes:', error);
-}
+const authRoutes = require('./routes/auth');
+const gameRoutes = require('./routes/games');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,10 +19,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(session({
   store: new SQLiteStore({ db: 'sessions.db', dir: __dirname }),
-  secret: 'your-secret-key', // Change this in production
+  secret: process.env.SESSION_SECRET || 'dev-secret-change-me' ,
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // Set to true if using HTTPS
+  cookie: {   secure: false,      // false for localhost
+              httpOnly: true,     // prevents JS reading the cookie
+              sameSite: 'lax'     // Set to true if using HTTPS
+          } 
 }));
 
 // Request logging middleware
@@ -48,18 +39,9 @@ app.get('/test', (req, res) => {
   res.json({ status: 'Server is working' });
 });
 
-// Routes (must come before static files)
-if (authRoutes) {
-  app.use('/auth', authRoutes);
-} else {
-  console.warn('Auth routes not available');
-}
-
-if (gameRoutes) {
-  app.use('/games', gameRoutes);
-} else {
-  console.warn('Game routes not available');
-}
+// Routes 
+app.use('/auth', authRoutes);
+app.use('/games', gameRoutes);
 
 // Serve static files
 app.use(express.static(path.join(__dirname)));
@@ -75,6 +57,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
